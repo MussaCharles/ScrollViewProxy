@@ -165,7 +165,7 @@ public struct ScrollViewReader<Content: View>: View {
                 // https://stackoverflow.com/a/61765994/3019595
             }
         // Reference: https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions
-            .introspect(.scrollView, on: .iOS(.v13...)) {
+            .introspect(.scrollView, on: .iOS(.v13...),scope: .ancestor) {
                 if self.proxy.coordinator.scrollView != $0 {
                     self.proxy.coordinator.scrollView = $0
                     self.proxy.offset = $0.offsetPublisher
