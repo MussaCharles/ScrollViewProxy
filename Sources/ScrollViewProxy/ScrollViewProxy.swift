@@ -1,9 +1,10 @@
 // Created by Casper Zandbergen on 01/06/2020.
 // https://twitter.com/amzdme
 
-import Introspect
+
 import SwiftUI
 import Combine
+@_spi(Advanced) import SwiftUIIntrospect
 
 // MARK: Fix for name collision when using SwiftUI 2.0
 
@@ -163,7 +164,8 @@ public struct ScrollViewReader<Content: View>: View {
                 // seems this will not be called due to ScrollView/Preference issues
                 // https://stackoverflow.com/a/61765994/3019595
             }
-            .introspectScrollView {
+        // Reference: https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions
+            .introspect(.scrollView, on: .iOS(.v13...)) {
                 if self.proxy.coordinator.scrollView != $0 {
                     self.proxy.coordinator.scrollView = $0
                     self.proxy.offset = $0.offsetPublisher
